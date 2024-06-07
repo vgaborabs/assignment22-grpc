@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option go_package = "github.com/vgaborabs/assignment22-grpc/user";
+
+package user;
+
+service UserService {
+  rpc GetUser(IdRequest) returns (UserModel) {}
+  rpc GetUsers(MultipleIdRequest) returns (UserModels) {}
+  rpc SearchUsers(SearchCriteria) returns (UserModels) {}
+}
+
+message UserModel {
+  uint64 id = 1;
+  string fname = 2;
+  string city = 3;
+  string phone = 4;
+  float height = 5;
+  bool married = 6;
+}
+
+message UserModels {
+  repeated UserModel users = 1;
+}
+
+message IdRequest {
+  uint64 id = 1;
+}
+
+message MultipleIdRequest {
+  repeated uint64 ids = 1;
+}
+
+
+message SearchCriteria {
+  string field = 1;
+  string value = 2;
+  optional string matchMode = 3;
+}
